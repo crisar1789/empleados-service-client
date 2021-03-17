@@ -50,24 +50,10 @@ public class SrvEmpleadosImpl implements SrvEmpleadosInt {
                 factory.setAddress(endpoint);
 
                 this.srvEmpleados = (SrvGuardarEmpleadosPort) factory.create();
-
-                setupTLS(this.srvEmpleados, requestTimeout, connectionTimeOut);
             } catch (Exception e) {
                 log.error("[WSClient - Construc] Error iniciando", e);
             }
         }
-    }
-	
-	private static void setupTLS(SrvGuardarEmpleadosPort port, int requestTimeout, int connectionTimeout)
-            throws FileNotFoundException, IOException, GeneralSecurityException {
-        HTTPConduit httpConduit = (HTTPConduit) ClientProxy.getClient(port).getConduit();
-        httpConduit.getClient().setConnectionTimeout(connectionTimeout);
-        httpConduit.getClient().setConnectionRequestTimeout(requestTimeout);
-
-        TLSClientParameters tlsClientParameters = new TLSClientParameters();
-        tlsClientParameters.setDisableCNCheck(true);
-
-        httpConduit.setTlsClientParameters(tlsClientParameters);
     }
 	
 	/**
