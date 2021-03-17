@@ -1,0 +1,62 @@
+<wsdl:definitions targetNamespace="http://www.parameta.com/service/empleados" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://www.parameta.com/service/empleados" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.parameta.com/service/empleados">
+   <wsdl:types>
+      <xs:schema elementFormDefault="qualified" targetNamespace="http://www.parameta.com/service/empleados" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+         <xs:element name="EmpleadoRequest">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="nombres" type="xs:string"/>
+                  <xs:element name="apellidos" type="xs:string"/>
+                  <xs:element name="tipoDocumento" type="xs:string"/>
+                  <xs:element name="nroDocumento" type="xs:string"/>
+                  <xs:element name="fechaNacimiento" type="xs:string"/>
+                  <xs:element name="fechaVinculacion" type="xs:string"/>
+                  <xs:element name="cargo" type="xs:string"/>
+                  <xs:element name="salario" type="xs:string"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element name="EmpleadoResponse">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element name="Context" type="tns:SrvResponse"/>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:complexType name="SrvResponse">
+            <xs:sequence>
+               <xs:element name="codigo" type="xs:string"/>
+               <xs:element name="descripcion" type="xs:string"/>
+            </xs:sequence>
+         </xs:complexType>
+      </xs:schema>
+   </wsdl:types>
+   <wsdl:message name="EmpleadoResponse">
+      <wsdl:part element="tns:EmpleadoResponse" name="EmpleadoResponse"></wsdl:part>
+   </wsdl:message>
+   <wsdl:message name="EmpleadoRequest">
+      <wsdl:part element="tns:EmpleadoRequest" name="EmpleadoRequest"></wsdl:part>
+   </wsdl:message>
+   <wsdl:portType name="SrvGuardarEmpleadosPort">
+      <wsdl:operation name="Empleado">
+         <wsdl:input message="tns:EmpleadoRequest" name="EmpleadoRequest"></wsdl:input>
+         <wsdl:output message="tns:EmpleadoResponse" name="EmpleadoResponse"></wsdl:output>
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="SrvGuardarEmpleadosPortSoap11" type="tns:SrvGuardarEmpleadosPort">
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <wsdl:operation name="Empleado">
+         <soap:operation soapAction=""/>
+         <wsdl:input name="EmpleadoRequest">
+            <soap:body use="literal"/>
+         </wsdl:input>
+         <wsdl:output name="EmpleadoResponse">
+            <soap:body use="literal"/>
+         </wsdl:output>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="SrvGuardarEmpleadosPortService">
+      <wsdl:port binding="tns:SrvGuardarEmpleadosPortSoap11" name="SrvGuardarEmpleadosPortSoap11">
+         <soap:address location="http://localhost:9002/service/SrvEmpleados"/>
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>
